@@ -75,13 +75,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr th:each="note : ${notelist}">
                                         <td>
-                                            <button type="button" class="btn btn-success">Edit</button>
-                                            <a class="btn btn-danger">Delete</a>
+                                            <button type="button"
+                                                    class="btn btn-success"
+                                                    th:onclick="showNoteModal([[${note.getNoteid()}]],[[${note.getNotetitle()}]], [[${note.getNotedescription()}]] )">
+                                                Edit
+                                            </button>
+                                            <a th:href="@{/deleteNote/} + ${note.getNoteid()}" class="btn btn-danger">Delete</a>
                                         </td>
-                                        <th scope="row">Example Note Title</th>
-                                        <td>Example Note Description </td>
+                                        <th scope="row" th:text="${note.getNotetitle()}">Example Note Title</th>
+                                        <td th:text="${note.getNotedescription()}">Example Note Description </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -97,15 +101,15 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" method="POST">
-                                            <input type="hidden" name="noteId" id="note-id">
+                                        <form action="#" method="POST" th:action="@{/note}" th:object="${newNote}">
+                                            <input type="hidden" name="noteId" id="note-id" th:field="*{noteid}">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Title</label>
-                                                <input type="text" name= "noteTitle" class="form-control" id="note-title" maxlength="20" required>
+                                                <input th:field="*{notetitle}" type="text" name= "noteTitle" class="form-control" id="note-title" maxlength="20" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="note-description" class="col-form-label">Description</label>
-                                                <textarea class="form-control" name="noteDescription" id="note-description" rows="5" maxlength="1000" required></textarea>
+                                                <textarea th:field="*{notedescription}"class="form-control" name="noteDescription" id="note-description" rows="5" maxlength="1000" required></textarea>
                                             </div>
                                             <button id="noteSubmit" type="submit" class="d-none"></button>
                                         </form>
@@ -124,7 +128,7 @@
                         </button>
 
                         <div class="table-responsive">
-                            <table class="table table-striped" th:object="${credentials}" id="credentialTable">
+                            <table class="table table-striped" id="credentialTable">
                                 <thead>
                                     <tr>
                                         <th style="width: 20%" scope="col"></th>
@@ -134,14 +138,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr th:each="cred : ${credlist}">
                                     <td>
-                                        <button type="button" class="btn btn-success">Edit</button>
-                                        <a class="btn btn-danger">Delete</a>
+                                        <button type="button"
+                                                class="btn btn-success"
+                                                th:onclick="showCredentialModal([[${cred.getCredentialid()}]], [[${cred.getUrl()}]], [[${cred.getUsername()}]], [[${cred.getPassword()}]])"
+                                        >Edit</button>
+                                        <a th:href="@{/deletecred/} + ${cred.getCredentialid()}" class="btn btn-danger">Delete</a>
                                     </td>
-                                    <th scope="row">Example Credential URL</th>
-                                    <td>Example Credential Username</td>
-                                    <td>Example Credential Password</td>
+                                    <th scope="row" th:text="${cred.getUrl()}">Example Credential URL</th>
+                                    <td th:text="${cred.getUsername()}">Example Credential Username</td>
+                                    <td th:text="${cred.getPassword()}">Example Credential Password</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -157,19 +164,19 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="#" method="POST">
-                                            <input type="hidden" name="credentialId" id="credential-id">
+                                        <form action="#" method="POST" th:action="@{/cred}" th:object="${newCred}">
+                                            <input type="hidden" name="credentialId" id="credential-id" th:field="*{credentialid}">
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">URL</label>
-                                                <input type="text" name= "url" class="form-control" id="credential-url" maxlength="100" required>
+                                                <input type="text" name= "url" class="form-control" id="credential-url" maxlength="100" required th:field="*{url}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Username</label>
-                                                <input type="text" name= "username" class="form-control" id="credential-username" maxlength="30" required>
+                                                <input type="text" name= "username" class="form-control" id="credential-username" maxlength="30" required th:field="*{username}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="note-title" class="col-form-label">Password</label>
-                                                <input type="text" name= "password" class="form-control" id="credential-password" maxlength="30" required>
+                                                <input type="text" name= "password" class="form-control" id="credential-password" maxlength="30" required th:field="*{password}">
                                             </div>
                                             <button id="credentialSubmit" type="submit" class="d-none"></button>
                                         </form>
