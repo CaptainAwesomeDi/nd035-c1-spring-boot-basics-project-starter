@@ -36,12 +36,11 @@ public class CredentialService {
         return this.credentialMapper.findCredentials(user.getUserid());
     }
 
-//    public Credential showOne(Integer credentialid){
-//        Credential cred = this.credentialMapper.findCredential(credentialid);
-//        String decryptedValue = this.encryptionService.decryptValue(cred.getPassword(),cred.getKey());
-//        cred.setPassword(decryptedValue);
-//        return cred;
-//    }
+    public String showOne(Integer credentialid){
+        Credential cred = this.credentialMapper.findCredential(credentialid);
+        String decryptedValue = this.encryptionService.decryptValue(cred.getPassword(),cred.getKey());
+        return decryptedValue;
+    }
 
     public void deleteCredential(Integer credentialid) {
         this.credentialMapper.deleteCredential(credentialid);

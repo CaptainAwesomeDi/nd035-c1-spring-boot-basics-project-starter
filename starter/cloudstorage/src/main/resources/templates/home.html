@@ -142,7 +142,7 @@
                                     <td>
                                         <button type="button"
                                                 class="btn btn-success"
-                                                th:onclick="showCredentialModal([[${cred.getCredentialid()}]], [[${cred.getUrl()}]], [[${cred.getUsername()}]], [[${cred.getPassword()}]])"
+                                                th:onclick="showCredentialModal([[${cred.getCredentialid()}]], [[${cred.getUrl()}]], [[${cred.getUsername()}]], [[${unencrypted.get(cred.getCredentialid())}]])"
                                         >Edit</button>
                                         <a th:href="@{/deletecred/} + ${cred.getCredentialid()}" class="btn btn-danger">Delete</a>
                                     </td>
