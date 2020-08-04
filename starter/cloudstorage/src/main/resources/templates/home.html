@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
-                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showNoteModal()">
+                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showNoteModal()" id="add-note-button">
                             + Add a New Note
                         </button>
 
@@ -79,12 +79,13 @@
                                         <td>
                                             <button type="button"
                                                     class="btn btn-success"
+                                                    id="edit-note-button"
                                                     th:onclick="showNoteModal([[${note.getNoteid()}]],[[${note.getNotetitle()}]], [[${note.getNotedescription()}]] )">
                                                 Edit
                                             </button>
-                                            <a th:href="@{/deleteNote/} + ${note.getNoteid()}" class="btn btn-danger">Delete</a>
+                                            <a th:href="@{/deleteNote/} + ${note.getNoteid()}" class="btn btn-danger" id="delete-note-button">Delete</a>
                                         </td>
-                                        <th scope="row" th:text="${note.getNotetitle()}">Example Note Title</th>
+                                        <th scope="row" th:text="${note.getNotetitle()}" id="displayed-note-title">Example Note Title</th>
                                         <td th:text="${note.getNotedescription()}">Example Note Description </td>
                                     </tr>
                                 </tbody>
@@ -116,14 +117,14 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>
+                                        <button id="note-save-button" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">
-                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">
+                        <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()" id="add-cred-button">
                             + Add a New Credential
                         </button>
 
@@ -142,13 +143,14 @@
                                     <td>
                                         <button type="button"
                                                 class="btn btn-success"
+                                                id="edit-cred-button"
                                                 th:onclick="showCredentialModal([[${cred.getCredentialid()}]], [[${cred.getUrl()}]], [[${cred.getUsername()}]], [[${unencrypted.get(cred.getCredentialid())}]])"
                                         >Edit</button>
-                                        <a th:href="@{/deletecred/} + ${cred.getCredentialid()}" class="btn btn-danger">Delete</a>
+                                        <a id="delete-cred-button" th:href="@{/deletecred/} + ${cred.getCredentialid()}" class="btn btn-danger" >Delete</a>
                                     </td>
-                                    <th scope="row" th:text="${cred.getUrl()}">Example Credential URL</th>
+                                    <th id="displayed-cred-url" scope="row" th:text="${cred.getUrl()}">Example Credential URL</th>
                                     <td th:text="${cred.getUsername()}">Example Credential Username</td>
-                                    <td th:text="${cred.getPassword()}">Example Credential Password</td>
+                                    <td id="displayed-cred-password" th:text="${cred.getPassword()}">Example Credential Password</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -183,7 +185,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
+                                        <button id="save-cred-button" type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
                                     </div>
                                 </div>
                             </div>
