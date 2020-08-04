@@ -27,13 +27,16 @@ public class FileController {
     String postFileUpload(@RequestParam("fileUpload") MultipartFile file, Model model, Authentication auth) throws IOException {
         User user  = this.userService.getUser(auth.getName());
         String filesize = Long.toString(file.getSize());
-        if (!file.isEmpty()) {
+        if (file.isEmpty()) {
+            model.addAttribute("error", "Can't upload, Because empty file.");
+        } else if ( !this.fileService.isfileNameAvailable(file.getOriginalFilename())) {
+            model.addAttribute("error", "Can't upload, Because file has duplicated name.");
+        } else {
             File currentFile = new File(null, file.getOriginalFilename(), file.getContentType(), filesize, user.getUserid(), file.getBytes());
             int result = this.fileService.createFile(currentFile);
             model.addAttribute("saved", true);
-        } else {
-            model.addAttribute("saved", false);
         }
+
         return "result";
     }
 

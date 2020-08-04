@@ -30,4 +30,9 @@ public class FileService {
     public void deleteFile(Integer fileId) {
         this.fileMapper.deletefile(fileId);
     }
+
+    public boolean isfileNameAvailable(String filename){
+        return this.fileMapper.findFileByName(filename) == null;
+    }
+
 }
